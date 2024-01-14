@@ -84,4 +84,43 @@ host[1:4]
 - It is also possible to prompt for a sudo password at runtime using `-K` (note uppercase) if desired. Note that this can become a challenge when executing against many systems.
 
 #### SSH config best-practice
-In this example we will have **A1**, **N1** and **N2** machines
+In this example we will have **A1**, **N1** and **N2** machines (A-Ansible host, and N1-2 Nodes to be managed by Ansible. )
+
+1. Create a user on **A1**:
+    ```shell
+    sudo useradd ansible
+    ```
+    Note: Do not create a password
+
+2. Login into a **N1** machine and create the same user as on A1:
+
+    ```shell
+    ssh scoldham2c.mylabserver.com
+
+    sudo useradd ansible
+    sudo passwd ansible
+
+    logout
+    ```
+
+3. On **A1** machine, switch to **ansible** user, then create **ssh key** and copy it to the H1 machine:
+
+    ```shell
+    sudo su - ansible
+    ssh-keygen
+
+    ssh-copy-id scoldham2c.mylabserver.com
+    ```
+
+4. Test that ssh key got propagated to **H1** by loggin in as ansible use. Note, if ssh key was successfully added, you will not be asked to provide password. 
+
+    ```shell
+    ssh scoldham2.mylabserver.com
+    ```
+
+5. Add `sudo` priviledges to `ansible` user, by modifying `sudoers` file:
+
+    ```yaml
+    sudo visudo
+    > ansible ALL=(ALL) NOPASSWD: ALL
+    ```
