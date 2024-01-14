@@ -14,7 +14,7 @@
 
 ## Installation and Configuration
 
-- In order to Install Ansible, you must configure the EPEL repository on your system.
+- In order to Install Ansible, you must configure the EPEL(Extra Packages for Enterprise Linux) repository on your system.
 
 - Once the EPEL repository is configured, your package manager installs Ansible and manages the
 dependencies:
