@@ -124,3 +124,40 @@ In this example we will have **A1**, **N1** and **N2** machines (A-Ansible host,
     sudo visudo
     > ansible ALL=(ALL) NOPASSWD: ALL
     ```
+
+<br><br><br>
+### Note, that in some cases home directory might not be created. 
+Follow steps :
+
+If you ran the adduser command with a custom home directory specified, and the directory is still not created, there might be an issue. Here are a few things to check:
+
+1. Check for Errors:
+    After running the adduser command, check for any error messages that might indicate what went wrong. If there were any issues, they should be displayed during the user creation process.
+
+2. Check Directory Permissions:
+    Ensure that the directory where you are trying to create the home directory (`/ansible` in your case) is writable by the user running the command. If there are permission issues, the directory creation might fail.
+
+3. Manual Directory Creation:
+    You can manually create the directory and set the correct ownership:
+    ```bash
+    sudo mkdir /ansible
+    sudo chown ansible:ansible /ansible
+    ```
+    Then, run the adduser command again to see if it successfully uses the existing directory.
+
+4. Check `/etc/passwd`:
+    After running the adduser command, check the /etc/passwd file to see if the home directory path is correctly set:
+    ```bash
+    grep ansible /etc/passwd
+    ```
+    This should show a line with the user details, including the specified home directory.
+
+5. Review Command Syntax:
+    Ensure that the syntax of the adduser command is correct, and there are no typos or mistakes:
+    ```bash
+    sudo adduser --home /ansible ansible
+    ```
+    Double-check for any mistakes in the command.
+
+6. Check Disk Space:
+    Verify that there is sufficient disk space available on the system. A lack of disk space could prevent the creation of directories.
