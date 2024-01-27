@@ -77,5 +77,5 @@ This command will execute the playbook named myplaybook.yml.
 
 ## Some Ansible Commands
 
-- **ansible --version:** Displays the version of Ansible installed.
-- **ansible all -m ping:** Test the connection and see if all hosts are responsive
+- `ansible --version` Displays the version of Ansible installed.
+- `ansible all -m ping` Test the connection and see if all hosts are responsive
