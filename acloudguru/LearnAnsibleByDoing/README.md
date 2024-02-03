@@ -20,7 +20,7 @@
 
 
 
-
+<br><br><br><br>
 ## Installation and Configuration
 ### Deploying Ansible
 
@@ -90,49 +90,112 @@
 
 
 
-
+<br><br><br><br>
 ### Getting Started with Ansible
+-  Install Ansible on the control node.
+    To install Ansible on the control node, run 
+    ```bash
+    sudo yum install ansible.
+    ```
+
+- Configure the `ansible` user on the control node for ssh shared key access to managed nodes. Do not use a passphrase for the key pair.
+    - To create a keypair for the ansible user on the control host, run the following: ```sudo su - ansible```
+    - ```ssh-keygen``` (accept all defaults: press enter for each prompt)
+    - Copy the public key to both **node1** and **node2**.
+    - As the `ansible` user on the control host:
+        - `ssh-copy-id node1` (accept the host key if prompted, authenticate as ansible user)
+        - `ssh-copy-id node2` (accept the host key if prompted, authenticate as ansible user)
+
+- Create a simple Ansible inventory on the control node in `/home/ansible/inventory` containing `node1` and `node2`.
+    - On the control host:
+    - `sudo su - ansible` (if not already ansible user)
+    - `touch /home/ansible/inventory`
+    - `echo "node1" >> /home/ansible/inventory`
+    - `echo "node2" >> /home/ansible/inventory`
+
+- Configure sudo access for Ansible on `node1` and `node2` such that Ansible may use sudo for any command with no password prompt.
+    - Log in to node1 as cloud_user and edit the sudoers file to contain appropriate access for the ansible user:
+        - `ssh cloud_user@node1`
+        - `sudo visudo`
+        - Add the following line to the file and save:
+            ```yaml
+            ansible    ALL=(ALL)       NOPASSWD: ALL
+            ```
+        - Repeate these steps for node2.
+
+- Verify each managed node is able to be accessed by Ansible from the control node using the `ping` module. Redirect the output of a successful command to `/home/ansible/output`.
+    - To verify each node, run the following as the ansible user from the control host:
+        - `ansible -i /home/ansible/inventory node1 -m ping`
+        - `ansible -i /home/ansible/inventory node2 -m ping`
+
+    - To redirect output of a successful command to /home/ansible/output:
+        - `ansible -i /home/ansible/inventory node1 -m ping > /home/ansible/output`
 
 
+
+
+
+
+<br><br><br><br>
 ### Ad-Hoc Ansible Commands
 
 
+
+
+
+<br><br><br><br>
 ### Working with Ansible Inventories
 
 
 
-
+<br><br><br><br>
 ## Plays and Playbooks
 ### Ansible Playbooks: The Basics
 
 
+
+<br><br><br><br>
 ### Ansible Playbooks - Error Handling
 
 
+
+<br><br><br><br>
 ### Working with Ansible Templates, Variables, and Facts
 
 
+
+<br><br><br><br>
 ### Writing Your First Ansible Playbook
 
 
+
+
+<br><br><br><br>
 ### Deploying Services Using Ansible
 
 
+
+<br><br><br><br>
 ### Advanced Features in Ansible Playbooks
 
 
 
 
+<br><br><br><br>
 ## Roles
 ### Working with Ansible Roles
 
 
 
+
+<br><br><br><br>
 ## Working With Files
 ### File Manipulation with Ansible
 
 
 
+
+<br><br><br><br>
 ## Ansible Vault
 ### Working with Confidential Data in Ansible
 
