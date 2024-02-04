@@ -139,8 +139,56 @@
 <br><br><br><br>
 ### Ad-Hoc Ansible Commands
 
+To summarize, you must do the following:
+- Create the user accounts noted in /home/ansible/userlist.txt.
+- Copy the authorized_keys file for each user to the correct location so the new accounts can log in with ssh key authentication.
+- Ensure auditd is enabled and running on all systems.
 
 
+
+
+![](img/lab3.png)
+
+
+<br><br><br>
+- Create the User Accounts Noted in `/home/ansible/userlist.txt`
+
+    ```bash
+    ansible dbsystems -b -m user -a "name=consultant"
+    ansible dbsystems -b -m user -a "name=supervisor"
+    ```
+
+    > `-b` - become
+    > `-m` - module
+    > `user` -
+    > `-a` -
+
+- Place Key Files in the Correct Location, `/home/$USER/.ssh/authorized_keys`, on Hosts in `dbsystems`
+    
+    - Create directory and add permissions
+
+        ```bash
+        ansible dbsystems -b -m file -a "path=/home/consultant/.ssh state=directory owner=consultant group=consultant mode=0755"
+        ```
+    - 
+        ```bash
+        ansible dbsystems -b -m copy -a "src=/home/ansible/keys/consultant/authorized_keys dest=/home/consultant/.ssh/authorized_keys mode=0600 owner=consultant group=consultant"
+        ```
+    - Create directory and add permissions
+
+        ```bash
+        ansible dbsystems -b -m file -a "path=/home/supervisor/.ssh state=directory owner=supervisor group=supervisor mode=0755"
+        ```
+
+    - 
+        ```bash
+        ansible dbsystems -b -m copy -a "src=/home/ansible/keys/supervisor/authorized_keys dest=/home/supervisor/.ssh/authorized_keys mode=0600 owner=supervisor group=supervisor"
+        ```
+
+- Ensure `auditd` Is Enabled and Running on All Hosts
+    ```bash
+    ansible all -b -m service -a "name=auditd state=started enabled=yes"
+    ```
 
 
 <br><br><br><br>
