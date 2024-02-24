@@ -207,7 +207,14 @@ This course is not approved or sponsored by Red Hat.
 - Define the `script_files` Variable for `web1` and Set Its Value to `/usr/local/scripts`
 
 
+#### Additional Resources
+Your company decided that their backup software license was frivolous and unnecessary. Because of this, the license was not renewed. As a stopgap measure, your supervisor has created a simple script and an Ansible playbook to create an archive of select files, depending on pre-defined Ansible host groups. You will create the inventory file to complete the backup strategy.
 
+Important notes:
+- For your convenience, Ansible has been installed on the control node.
+- The user ansible has already been created on all servers with appropriate shared keys for access to managed servers from the control node.
+- The ansible user has the same `password` as `cloud_user`.
+- `/etc/hosts` entries have been made on `control1` for the managed servers.
 
 
 
