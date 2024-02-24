@@ -194,6 +194,14 @@ To summarize, you must do the following:
 <br><br><br><br>
 ### Working with Ansible Inventories
 
+Ansible relies on an inventory for base functionality. While inventories can be very simple, they have been designed to be robust. This exercise walks through how to use some of the more advanced features available within an Ansible inventory. Upon completion of this exercise, students will have practical experience with Ansible inventory configuration.
+
+
+
+
+
+
+
 
 
 <br><br><br><br>
