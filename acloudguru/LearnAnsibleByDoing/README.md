@@ -217,7 +217,8 @@ Important notes:
 - Configure the media Host Group to Contain `media1` and `media2`
   - Use an editor, such as **Vim**, to configure the `media` host group to contain `media1` and `media2`
     ```shell
-    vim $HOME/.ansible/inventory
+    su ansible
+    vim $HOME/inventory
     [media]
     media1
     media2
@@ -226,12 +227,46 @@ Important notes:
   - Define the following variables for media with their accompanying values:
     - `media_content` should be set to `/tmp/var/media/content/`.
     - `media_index` should be set to `/tmp//opt/media/mediaIndex`.
+  
+    > Ansible recommended approach is to use separate directory for variables (group_vars) and name the file with the same name as the group variables are applicable to.
+
+    ```shell
+    mkdir group_vars
+    vim media 
+    media_content: /tmp/var/media/content
+    media_index: /tmp/opt/media/mediaIndex
+    ```
+
+
+
 - Configure the webservers Host Group to Contain the Hosts `web1` and `web2`
   - Configure the `webservers` host group to contain the hosts `web1` and `web2`
+
+    ```shell
+    vim $HOME/inventory
+    [media]
+    media1
+    media2
+
+    [webservers]
+    web1
+    web2
+    ```
+
+    > `ansible -i inventory -m ping all`
+
 - Define Variables for webservers with Their Accompanying Values
   - Define the following variables for webservers with their accompanying values:
     - `httpd_webroot` should be set to `/var/www/`.
     - `httpd_config` should be set to `/etc/httpd/`.
+
+    ```shell
+    cd group_vars
+    vim webservers 
+    httpd_webroot: /var/www/
+    httpd_config: /etc/httpd/
+    ```
+
 - Define the `script_files` Variable for `web1` and Set Its Value to `/usr/local/scripts`
     1. Define the variable `script_files` specifically for `web1`. The value of `script_files` should be set to `/tmp/usr/local/scripts`.
     2. To test your inventory, run `/home/ansible/scripts/backup.sh`.
@@ -239,6 +274,11 @@ Important notes:
 
         Note: Do not edit anything in `/home/ansible/scripts/`.
 
+    ```shell
+    mkdir $HOME/.ansible/host_vars
+    cd host_vars
+    vim web1
+    script_files: /tmp/usr/local/scripts
 
 
 <br><br><br><br>
