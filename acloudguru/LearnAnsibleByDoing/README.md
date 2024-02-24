@@ -196,7 +196,15 @@ To summarize, you must do the following:
 
 Ansible relies on an inventory for base functionality. While inventories can be very simple, they have been designed to be robust. This exercise walks through how to use some of the more advanced features available within an Ansible inventory. Upon completion of this exercise, students will have practical experience with Ansible inventory configuration.
 
+This course is not approved or sponsored by Red Hat.
 
+**Learning objectives: **
+- Create the inventory File in `/home/ansible/`
+- Configure the media Host Group to Contain `media1` and `media2`
+- Define Variables for media with Their Accompanying Values
+- Configure the webservers Host Group to Contain the Hosts `web1` and `web2`
+- Define Variables for webservers with Their Accompanying Values
+- Define the `script_files` Variable for `web1` and Set Its Value to `/usr/local/scripts`
 
 
 
