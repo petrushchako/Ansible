@@ -427,15 +427,21 @@ Note: Please wait an extra minute before starting the lab to make sure it is ful
 
 - Configure the Playbook to Start and Enable the `httpd` Service on the `web` Group
 
+    ```yaml
+    ---
+    - hosts: web
+    become: yes
+    tasks:
+        - name: Install httpd
+        yum: name=httpd state=latest
+        - name: Start and enable
+        service: name=httpd state=started enabled=yes
+    ```
+
+- Configure the Playbook to Retrieve the Website from *http://repo.example.com/website.tgz* on Each Server in the `web` Group
 ```yaml
 
 ```
-
-- Configure the Playbook to Retrieve the Website from *http://repo.example.com/website.tgz* on Each Server in the `web` Group
-    - Using a text editor such as vim, edit /home/ansible/web.yml to contain the following task block after the "start and enable httpd" task:
-        ```yaml
-
-       ```
 
 - Configure the Playbook to Unarchive the Website into `/var/www/html` on All Servers in the `web` Group
     - Using a text editor such as vim, edit /home/ansible/web.yml to contain the following task block after the "retrieve website from repo" task:
