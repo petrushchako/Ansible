@@ -473,7 +473,8 @@ Note: Please wait an extra minute before starting the lab to make sure it is ful
 
     `ansible-playbook -i /home/ansible/inventory /home/ansible/web.yml`
 
-
+    Expected output:
+    ![](img/lab5.png)
 
 
 
