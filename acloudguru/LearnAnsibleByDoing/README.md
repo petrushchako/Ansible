@@ -367,10 +367,13 @@ Important notes:
 ## Plays and Playbooks
 ### Ansible Playbooks: The Basics
 
+<br>
 
 **ABOUT THIS LAB**
 
     The playbook concept is at the heart of Ansible. Writing a playbook to configure a system to the desired state is what makes this exercise so valuable to students who are wanting to get serious with Ansible. After completing this learning activity on how to configure an inventory all the way through to a mass software deployment, students will be another step closer to an official Red Hat Ansible certification.
+
+<br>
 
 **Additional Resources**
 
@@ -383,6 +386,8 @@ You must create an ansible inventory in /home/ansible/inventory containing a hos
 Furthermore, you must design an Ansible playbook that will execute the following tasks on your configured inventory: install httpd, start and enable the httpd service, and install a simple website provided on a repo server. Create the playbook in /home/ansible/web.yml. The simple website may be accessed from http://repo.example.com/website.tgz.
 
 Note: Please wait an extra minute before starting the lab to make sure it is fully provisioned.
+
+<br>
 
 **Summary tasks list**:
 - Create an inventory in `/home/ansible/inventory` containing a host group named web. The web group should contain `node1` and `node2`.
@@ -401,6 +406,7 @@ Note: Please wait an extra minute before starting the lab to make sure it is ful
 /etc/hosts entries have been made on control1 for the managed servers.
 
 
+<br>
 
 **Learning Objectives**
 
@@ -475,12 +481,6 @@ Note: Please wait an extra minute before starting the lab to make sure it is ful
 
     Expected output:
     ![](img/lab5.png)
-
-
-
-
-
-
 
 
 
