@@ -482,6 +482,8 @@ Note: Please wait an extra minute before starting the lab to make sure it is ful
     Expected output:
     ![](img/lab5.png)
 
+    Validate the upload:
+    `curl node1/home.html`
 
 
 <br><br><br><br>
