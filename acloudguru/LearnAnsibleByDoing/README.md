@@ -368,6 +368,11 @@ Important notes:
 ### Ansible Playbooks: The Basics
 
 
+**ABOUT THIS LAB**
+The playbook concept is at the heart of Ansible. Writing a playbook to configure a system to the desired state is what makes this exercise so valuable to students who are wanting to get serious with Ansible. After completing this learning activity on how to configure an inventory all the way through to a mass software deployment, students will be another step closer to an official Red Hat Ansible certification.
+
+
+
 
 <br><br><br><br>
 ### Ansible Playbooks - Error Handling
