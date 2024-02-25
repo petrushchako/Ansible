@@ -412,19 +412,24 @@ Note: Please wait an extra minute before starting the lab to make sure it is ful
 
 - Create a Playbook in `/home/ansible/web.yml`
     - `echo "---" >> /home/ansible/web.yml
-`
 
 - Configure the Playbook to Install `httpd` on the `web` Group
-    - Using a text editor, such as vim, edit /home/ansible/web.yml to contain the following text block below the line containing "---":
-       ```yaml
+    
+    ```yaml
+    ---
+    - hosts: web
+        become: yes
+        tasks:
+        - name: Install httpd
+            yum: name=httpd state=latest
 
-       ```
+    ```
 
 - Configure the Playbook to Start and Enable the `httpd` Service on the `web` Group
-    - Using a text editor such as vim, edit /home/ansible/web.yml to contain the following task block after the "install httpd task":
-       ```yaml
 
-       ```
+```yaml
+
+```
 
 - Configure the Playbook to Retrieve the Website from *http://repo.example.com/website.tgz* on Each Server in the `web` Group
     - Using a text editor such as vim, edit /home/ansible/web.yml to contain the following task block after the "start and enable httpd" task:
