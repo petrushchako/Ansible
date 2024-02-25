@@ -453,11 +453,20 @@ Note: Please wait an extra minute before starting the lab to make sure it is ful
     ```
 
 - Configure the Playbook to Unarchive the Website into `/var/www/html` on All Servers in the `web` Group
-    - Using a text editor such as vim, edit /home/ansible/web.yml to contain the following task block after the "retrieve website from repo" task:
-
-        ```yaml
-
-       ```
+    ```yaml
+    ---
+    - hosts: web
+    become: yes
+    tasks:
+        - name: Install httpd
+        yum: name=httpd state=latest
+        - name: Start and enable
+        service: name=httpd state=started enabled=yes
+        - name: Retrieve website from repo
+        get_url: url=http://repo.example.com/website.tgz dest=/tmp/website.tgz
+        - name: Install website
+        unarchive: remote_src=yes src=/tmp/website.tgz dest=/var/www/html/
+    ```
 
 
 - Verify the Work by Executing the Playbook Using the Inventory
