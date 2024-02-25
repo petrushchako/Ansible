@@ -402,6 +402,88 @@ Note: Please wait an extra minute before starting the lab to make sure it is ful
 
 
 
+**Learning Objectives**
+
+- Create an Inventory in `/home/ansible/inventory `That Contains a Host Group Named `web`. The `web` Group Should Contain `node1` and `node2`
+    - `echo "[web]" >> /home/ansible/inventory`
+    - `echo "node1" >> /home/ansible/inventory`
+    - `echo "node2" >> /home/ansible/inventory`
+
+
+- Create a Playbook in `/home/ansible/web.yml`
+    - `echo "---" >> /home/ansible/web.yml
+
+- Configure the Playbook to Install `httpd` on the `web` Group
+    
+    ```yaml
+    ---
+    - hosts: web
+        become: yes
+        tasks:
+        - name: Install httpd
+            yum: name=httpd state=latest
+
+    ```
+
+- Configure the Playbook to Start and Enable the `httpd` Service on the `web` Group
+
+    ```yaml
+    ---
+    - hosts: web
+    become: yes
+    tasks:
+        - name: Install httpd
+        yum: name=httpd state=latest
+        - name: Start and enable
+        service: name=httpd state=started enabled=yes
+    ```
+
+- Configure the Playbook to Retrieve the Website from *http://repo.example.com/website.tgz* on Each Server in the `web` Group
+    ```yaml
+    ---
+    - hosts: web
+    become: yes
+    tasks:
+        - name: Install httpd
+        yum: name=httpd state=latest
+        - name: Start and enable
+        service: name=httpd state=started enabled=yes
+        - name: Retrieve website from repo
+        get_url: url=http://repo.example.com/website.tgz dest=/tmp/website.tgz
+    ```
+
+- Configure the Playbook to Unarchive the Website into `/var/www/html` on All Servers in the `web` Group
+    ```yaml
+    ---
+    - hosts: web
+    become: yes
+    tasks:
+        - name: Install httpd
+        yum: name=httpd state=latest
+        - name: Start and enable
+        service: name=httpd state=started enabled=yes
+        - name: Retrieve website from repo
+        get_url: url=http://repo.example.com/website.tgz dest=/tmp/website.tgz
+        - name: Install website
+        unarchive: remote_src=yes src=/tmp/website.tgz dest=/var/www/html/
+    ```
+
+
+- Verify the Work by Executing the Playbook Using the Inventory
+
+    `ansible-playbook -i /home/ansible/inventory /home/ansible/web.yml`
+
+    Expected output:
+    ![](img/lab5.png)
+
+
+
+
+
+
+
+
+
 <br><br><br><br>
 ### Ansible Playbooks - Error Handling
 
