@@ -569,6 +569,26 @@ If the report is collected, the playbook should write and edit the file to repla
 
 - Configure the Playbook to Replace All Instances of `#BLANKLINE` with the Line Break Character `\n`
 
+    ```yaml
+    ---
+    - hosts: localhost
+    tasks:
+        - name: download transaction_list
+        block:
+            - get_url:
+                url: http://apps.l33t.com/transaction_list
+                dest: /home/ansible/transaction_list
+            - replace: 
+                path: /home/ansible/transaction_list 
+                regexp: "#BLANKLINE"
+                replace: '\n'
+            - debug: msg="File downloaded"
+        rescue:
+            - debug: msg="l33t.com appears to be down.  Try again later."
+        always:
+            - debug: msg="Attempt completed."
+    ```
+
 
 - Verify Configuration by Running the Playbook
 
