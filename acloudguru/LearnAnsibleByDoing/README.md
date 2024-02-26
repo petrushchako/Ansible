@@ -594,6 +594,10 @@ If the report is collected, the playbook should write and edit the file to repla
 
     `ansible-playbook /home/ansible/report.yml`
 
+    Expected output:
+
+    ![](img/lab6.png)
+
 <br><br><br><br>
 ### Deploying Services Using Ansible
 
