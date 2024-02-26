@@ -499,6 +499,9 @@ Note: Please wait an extra minute before starting the lab to make sure it is ful
 <br><br><br><br>
 ### Writing Your First Ansible Playbook
 
+Advanced error handling is one of the many strengths of Ansible. Software systems are seldom perfect, and that is an issue in this exercise. Students must configure an Ansible playbook to handle an unreliable connection. This skill is not only essential for practical Ansible use, but also an objective on the Red Hat Certified Ansible Specialist Exam.
+
+
 
 
 
