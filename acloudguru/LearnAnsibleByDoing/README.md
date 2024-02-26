@@ -531,10 +531,29 @@ If the report is collected, the playbook should write and edit the file to repla
 
 - Configure the Playbook to Handle Connection Failure by Outputting "l33t.com appears to be down. Try again later." to `stdout`
 
+    Using a text editor, such as `vim`, edit the tasks section in `/home/ansible/report.yml` to contain the new lines as shown below. Note that the `get_url` line was changed to include a leading hyphen:
 
+    ```yaml
+    ---
+    - hosts: localhost
+    tasks:
+        - name: download transaction_list
+        block:
+            - get_url:
+                url: http://apps.l33t.com/transaction_list
+                dest: /home/ansible/transaction_list
+            - debug: msg="File downloaded"
+        rescue:
+            - debug: msg="l33t.com appears to be down.  Try again later."
+    ```
 
 - Configure the Playbook to Output "Attempt Completed" to `stdout`, Whether It Was Successful or Not
 
+    Using a text editor, such as `vim`, edit the tasks section in `/home/ansible/report.yml` to contain the new lines as shown below.
+
+```yaml
+
+```
 
 - Configure the Playbook to Replace All Instances of `#BLANKLINE` with the Line Break Character `\n`
 
