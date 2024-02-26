@@ -501,8 +501,45 @@ Note: Please wait an extra minute before starting the lab to make sure it is ful
 
 Advanced error handling is one of the many strengths of Ansible. Software systems are seldom perfect, and that is an issue in this exercise. Students must configure an Ansible playbook to handle an unreliable connection. This skill is not only essential for practical Ansible use, but also an objective on the Red Hat Certified Ansible Specialist Exam.
 
+<br>
+
+**Additional Resources**
+
+We have to set up automation to pull down a data file, from a notoriously unreliable third-party system, for integration purposes. Create a playbook that attempts to pull down `http://apps.l33t.com/transaction_list` to `localhost`. The playbook should gracefully handle the site being down by outputting the message `"l33t.com appears to be down. Try again later."` to stdout. If the task succeeds, the playbook should write `"File downloaded."` to `stdout`. No matter if the playbook errors or not, it should always output `"Attempt completed."` to `stdout`.
+
+If the report is collected, the playbook should write and edit the file to replace all occurrences of `#BLANKLINE` with a line break `\n`.
+
+<br>
+
+**Learning Objectives**
+- Create a playbook: `/home/ansible/report.yml`
+
+    `echo "---" >> /home/ansible/report.yml`
+
+- Configure the Playbook to Download *http://apps.l33t.com/transaction_list* to `/home/ansible/transaction_list` on `localhost` and Outputs the Message "File downloaded." to `stdout`
+
+    ```yaml
+    - hosts: localhost
+        tasks:
+        - name: download transaction_list
+            get_url:
+            url: http://apps.l33t.com/transaction_list 
+            dest: /home/ansible/transaction_list
+        - debug: msg="File downloaded"
+    ```
 
 
+- Configure the Playbook to Handle Connection Failure by Outputting "l33t.com appears to be down. Try again later." to `stdout`
+
+
+
+- Configure the Playbook to Output "Attempt Completed" to `stdout`, Whether It Was Successful or Not
+
+
+- Configure the Playbook to Replace All Instances of `#BLANKLINE` with the Line Break Character `\n`
+
+
+- Verify Configuration by Running the Playbook
 
 
 <br><br><br><br>
