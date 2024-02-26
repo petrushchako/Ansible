@@ -592,6 +592,7 @@ If the report is collected, the playbook should write and edit the file to repla
 
 - Verify Configuration by Running the Playbook
 
+    `ansible-playbook /home/ansible/report.yml`
 
 <br><br><br><br>
 ### Deploying Services Using Ansible
