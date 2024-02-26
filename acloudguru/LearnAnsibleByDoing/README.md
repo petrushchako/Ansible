@@ -551,9 +551,21 @@ If the report is collected, the playbook should write and edit the file to repla
 
     Using a text editor, such as `vim`, edit the tasks section in `/home/ansible/report.yml` to contain the new lines as shown below.
 
-```yaml
-
-```
+    ```yaml
+    ---
+    - hosts: localhost
+    tasks:
+        - name: download transaction_list
+        block:
+            - get_url:
+                url: http://apps.l33t.com/transaction_list
+                dest: /home/ansible/transaction_list
+            - debug: msg="File downloaded"
+        rescue:
+            - debug: msg="l33t.com appears to be down.  Try again later."
+        always:
+            - debug: msg="Attempt completed."
+    ```
 
 - Configure the Playbook to Replace All Instances of `#BLANKLINE` with the Line Break Character `\n`
 
