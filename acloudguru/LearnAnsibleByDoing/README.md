@@ -613,7 +613,7 @@ A colleague of yours was the unfortunate victim of a scam email, and their netwo
   - Grant users in the `dba` group `sudo su - dbuser` on the DBSERVERS hosts: `%dba DBSERVERS = /bin/su - dbuser`
   - The file must be validated using `/sbin/visudo -cf` before deployment.
 
-
+You will need to create an accompanying playbook in `/home/ansible/security.yml` that will deploy this template to all servers in the default inventory.
 
 
 
