@@ -494,6 +494,11 @@ Note: Please wait an extra minute before starting the lab to make sure it is ful
 <br><br><br><br>
 ### Working with Ansible Templates, Variables, and Facts
 
+**ABOUT THIS LAB**
+
+Besides being an objective on the Red Hat Certified Ansible Specialist Exam, a demonstrated ability to use Ansible templates, variables, and facts is essential to practical systems deployment through Ansible. Templates allow for a streamlined approach to configuration management that reduces configuration error and simplifies system upkeep. This learning activity starts a student on a path from basic Ansible knowledge to a strong working knowledge that is necessary for real-world application.
+
+This course is not approved or sponsored by Red Hat.
 
 
 <br><br><br><br>
