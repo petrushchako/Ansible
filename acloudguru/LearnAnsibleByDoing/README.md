@@ -665,8 +665,17 @@ You will need to create an accompanying playbook in `/home/ansible/security.yml`
     cat /etc/sudoers.d/hardened
     ```
 
+
 <br><br><br><br>
 ### Writing Your First Ansible Playbook
+
+**ABOUT THIS LAB**
+
+Playbooks are the heart of Ansible. They provide a means of executing numerous tasks across any number of systems. This exercise sets you on the path to Ansible mastery by allowing you to craft and execute an Ansible playbook.
+
+
+
+
 
 
 <br><br><br><br>
