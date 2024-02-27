@@ -642,20 +642,28 @@ You will need to create an accompanying playbook in `/home/ansible/security.yml`
     ```yaml
     ---
     - hosts: all
-    become: yes
-    tasks:
-    - name: deploy sudo template
-        template:
-        src: /home/ansible/hardened.j2
-        dest: /etc/sudoers.d/hardened
-        validate: /sbin/visudo -cf %s
-```
+      become: yes
+      tasks:
+      - name: deploy sudo template
+          template:
+          src: /home/ansible/hardened.j2
+          dest: /etc/sudoers.d/hardened
+          validate: /sbin/visudo -cf %s
+    ```
 - Run the Playbook and Ensure the Files Are Correctly Deployed
 
     `ansible-playbook /home/ansible/security.yml`
 
     Check the local /etc/sudoers.d/hardened on the ansible control node for the correct contents.
 
+    Expected outcome:
+    ![](img/lab7.png)
+
+    Check file creation on the local host:
+    ```shell
+    sudo su - 
+    cat /etc/sudoers.d/hardened
+    ```
 
 <br><br><br><br>
 ### Writing Your First Ansible Playbook
