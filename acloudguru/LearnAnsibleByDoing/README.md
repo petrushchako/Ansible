@@ -690,9 +690,82 @@ Your supervisor has asked you to find a way to automate and audit basic system c
 **SysAdmin servers**:
 - Copy `/home/ansible/scripts.tgz` from the control node to `/mnt/storage`
 
+<br>
+
+**Learning Objectives**
+
+- Create a Basic Playbook for All Servers in the Ansible Inventory
+
+  Create the file `/home/ansible/bootstrap.yml` and add the following content:
+
+    ```yaml
+    ---
+    - hosts: all
+    become: yes
+    tasks:
+        - name: edit host file
+        lineinfile:
+            path: /etc/hosts
+            line: "ansible.xyzcorp.com 169.168.0.1"
+
+        - name: install elinks
+        package:
+            name: elinks
+            state: latest
+
+        - name: create audit user
+        user:
+            name: xyzcorp_audit
+            state: present
+
+        - name: update motd
+        copy:
+            src: /home/ansible/motd
+            dest: /etc/motd
+
+        - name: update issue
+        copy:
+            src: /home/ansible/issue
+            dest: /etc/issue
+    ```
+
+- Add a Section to the Playbook for the Network Servers in the Ansible Inventory
+
+    Add a section to the playbook in `/home/ansible/bootstrap.yml` that completes the noted task required for the network servers in the Ansible inventory.
+    ```yaml
+    - hosts: network
+      become: yes
+      tasks:
+        - name: install netcat
+          yum:
+            name: nmap-ncat
+            state: latest
+        - name: create network user
+          user:
+            name: xyzcorp_network
+            state: present
+    ```
 
 
+- Add a Section to the Playbook for the SysAdmin Servers in the Ansible Inventory
 
+    Add a section to the playbook in `/home/ansible/bootstrap.yml` that completes the noted task required for the `sysadmin` servers in the Ansible inventory.
+
+    ```yaml
+    - hosts: sysadmin
+      become: yes
+      tasks:
+        - name: copy tarball
+          copy:
+            src: /home/ansible/scripts.tgz
+            dest: /mnt/storage/
+    ```
+
+- Execute Playbook to Verify Your Playbook Works Correctly
+
+    Execute playbook `/home/ansible/bootstrap.yml` to verify your playbook works correctly.
+
+    Run `ansible-playbook /home/ansible/bootstrap.yml` from the control node.
 
 
 <br><br><br><br>
