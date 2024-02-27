@@ -490,20 +490,6 @@ Note: Please wait an extra minute before starting the lab to make sure it is ful
 ### Ansible Playbooks - Error Handling
 
 
-
-<br><br><br><br>
-### Working with Ansible Templates, Variables, and Facts
-
-**ABOUT THIS LAB**
-
-Besides being an objective on the Red Hat Certified Ansible Specialist Exam, a demonstrated ability to use Ansible templates, variables, and facts is essential to practical systems deployment through Ansible. Templates allow for a streamlined approach to configuration management that reduces configuration error and simplifies system upkeep. This learning activity starts a student on a path from basic Ansible knowledge to a strong working knowledge that is necessary for real-world application.
-
-This course is not approved or sponsored by Red Hat.
-
-
-<br><br><br><br>
-### Writing Your First Ansible Playbook
-
 Advanced error handling is one of the many strengths of Ansible. Software systems are seldom perfect, and that is an issue in this exercise. Students must configure an Ansible playbook to handle an unreliable connection. This skill is not only essential for practical Ansible use, but also an objective on the Red Hat Certified Ansible Specialist Exam.
 
 <br>
@@ -602,6 +588,21 @@ If the report is collected, the playbook should write and edit the file to repla
     Expected output:
 
     ![](img/lab6.png)
+
+
+<br><br><br><br>
+### Working with Ansible Templates, Variables, and Facts
+
+**ABOUT THIS LAB**
+
+Besides being an objective on the Red Hat Certified Ansible Specialist Exam, a demonstrated ability to use Ansible templates, variables, and facts is essential to practical systems deployment through Ansible. Templates allow for a streamlined approach to configuration management that reduces configuration error and simplifies system upkeep. This learning activity starts a student on a path from basic Ansible knowledge to a strong working knowledge that is necessary for real-world application.
+
+This course is not approved or sponsored by Red Hat.
+
+
+<br><br><br><br>
+### Writing Your First Ansible Playbook
+
 
 <br><br><br><br>
 ### Deploying Services Using Ansible
