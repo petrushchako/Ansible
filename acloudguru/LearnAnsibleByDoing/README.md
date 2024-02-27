@@ -490,15 +490,6 @@ Note: Please wait an extra minute before starting the lab to make sure it is ful
 ### Ansible Playbooks - Error Handling
 
 
-
-<br><br><br><br>
-### Working with Ansible Templates, Variables, and Facts
-
-
-
-<br><br><br><br>
-### Writing Your First Ansible Playbook
-
 Advanced error handling is one of the many strengths of Ansible. Software systems are seldom perfect, and that is an issue in this exercise. Students must configure an Ansible playbook to handle an unreliable connection. This skill is not only essential for practical Ansible use, but also an objective on the Red Hat Certified Ansible Specialist Exam.
 
 <br>
@@ -597,6 +588,78 @@ If the report is collected, the playbook should write and edit the file to repla
     Expected output:
 
     ![](img/lab6.png)
+
+
+<br><br><br><br>
+### Working with Ansible Templates, Variables, and Facts
+
+**ABOUT THIS LAB**
+
+Besides being an objective on the Red Hat Certified Ansible Specialist Exam, a demonstrated ability to use Ansible templates, variables, and facts is essential to practical systems deployment through Ansible. Templates allow for a streamlined approach to configuration management that reduces configuration error and simplifies system upkeep. This learning activity starts a student on a path from basic Ansible knowledge to a strong working knowledge that is necessary for real-world application.
+
+<br>
+
+**Additional information**
+
+A colleague of yours was the unfortunate victim of a scam email, and their network account was compromised. Shortly after you finished helping them pack up their desk, your boss gave you the assignment to promote system security through deploying a hardened sudoers file. You will need to create an Ansible template of the sudoers file that meets the following criteria:
+
+  - A file named `/etc/sudoers.d/hardened` to deploy on all ansible inventory servers. WARNING: **Do NOT edit the default `sudoers` file**, doing so may break your exercise environment. 
+   
+    Additionally, always validate any file placed in /etc/sudoers.d with `/sbin/visudo -cf <filename>` prior to deployment!!
+  - Grant users in the `sysops` group the ability to run all commands as root for each local system by IP address. This would be what the entry in your result file except with the target system's IP: `%sysops 34.124.22.55 = (ALL) ALL`.
+  - Define the `host_alias` group `WEBSERVERS` to contain all servers in the ansible web inventory group: `Host_Alias WEBSERVERS = <host name>`.
+  - Define the `host_alias` group `DBSERVERS` to contain all servers in the ansible database inventory group: `Host_Alias DBSERVERS = <host name>`
+  - Grant users in the `httpd` group the ability to `sudo su - webuser` on the WEBSERVERS hosts: `%httpd WEBSERVERS = /bin/su - webuser`
+  - Grant users in the `dba` group `sudo su - dbuser` on the DBSERVERS hosts: `%dba DBSERVERS = /bin/su - dbuser`
+  - The file must be validated using `/sbin/visudo -cf` before deployment.
+
+You will need to create an accompanying playbook in `/home/ansible/security.yml` that will deploy this template to all servers in the default inventory.
+
+<br>
+
+**Learning Objectives**
+
+- Create a Template *sudoers* File in `/home/ansible/hardened.j2` That Produces a File with Appropriate Output for Each Host
+
+    `touch /home/ansible/hardened.j2`
+
+
+- The Deployed File Should Resemble the Example File Except with the *IP* and *hostnames* Customized Appropriately
+
+    Edit hardened.j2 to contain the following text:
+    ```yaml
+    %sysops {{ ansible_default_ipv4.address }} = (ALL) ALL
+    Host_Alias WEBSERVERS = {{ groups['web']|join(', ') }}
+    Host_Alias DBSERVERS = {{ groups['database']|join(', ') }} 
+    %httpd WEBSERVERS = /bin/su - webuser
+    %dba DBSERVERS = /bin/su - dbuser
+    ```
+
+
+- Create a Playbook in `/home/ansible/security.yml` That Uses the Template Module to Deploy the Template on All Servers in the Default Ansible Inventory After Validating the Syntax of the Generated File
+
+    Edit `/home/ansible/security.yml` to contain the following:
+    ```yaml
+    ---
+    - hosts: all
+    become: yes
+    tasks:
+    - name: deploy sudo template
+        template:
+        src: /home/ansible/hardened.j2
+        dest: /etc/sudoers.d/hardened
+        validate: /sbin/visudo -cf %s
+```
+- Run the Playbook and Ensure the Files Are Correctly Deployed
+
+    `ansible-playbook /home/ansible/security.yml`
+
+    Check the local /etc/sudoers.d/hardened on the ansible control node for the correct contents.
+
+
+<br><br><br><br>
+### Writing Your First Ansible Playbook
+
 
 <br><br><br><br>
 ### Deploying Services Using Ansible
