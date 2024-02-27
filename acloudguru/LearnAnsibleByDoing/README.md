@@ -767,6 +767,8 @@ Your supervisor has asked you to find a way to automate and audit basic system c
 
     Run `ansible-playbook /home/ansible/bootstrap.yml` from the control node.
 
+    expected output:
+    ![](img/lab8.png)
 
 <br><br><br><br>
 ### Deploying Services Using Ansible
