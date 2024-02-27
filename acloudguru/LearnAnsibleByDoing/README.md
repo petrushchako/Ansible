@@ -615,7 +615,46 @@ A colleague of yours was the unfortunate victim of a scam email, and their netwo
 
 You will need to create an accompanying playbook in `/home/ansible/security.yml` that will deploy this template to all servers in the default inventory.
 
+<br>
 
+**Learning Objectives**
+
+- Create a Template *sudoers* File in `/home/ansible/hardened.j2` That Produces a File with Appropriate Output for Each Host
+
+    `touch /home/ansible/hardened.j2`
+
+
+- The Deployed File Should Resemble the Example File Except with the *IP* and *hostnames* Customized Appropriately
+
+    Edit hardened.j2 to contain the following text:
+    ```yaml
+    %sysops {{ ansible_default_ipv4.address }} = (ALL) ALL
+    Host_Alias WEBSERVERS = {{ groups['web']|join(', ') }}
+    Host_Alias DBSERVERS = {{ groups['database']|join(', ') }} 
+    %httpd WEBSERVERS = /bin/su - webuser
+    %dba DBSERVERS = /bin/su - dbuser
+    ```
+
+
+- Create a Playbook in `/home/ansible/security.yml` That Uses the Template Module to Deploy the Template on All Servers in the Default Ansible Inventory After Validating the Syntax of the Generated File
+
+    Edit `/home/ansible/security.yml` to contain the following:
+    ```yaml
+    ---
+    - hosts: all
+    become: yes
+    tasks:
+    - name: deploy sudo template
+        template:
+        src: /home/ansible/hardened.j2
+        dest: /etc/sudoers.d/hardened
+        validate: /sbin/visudo -cf %s
+```
+- Run the Playbook and Ensure the Files Are Correctly Deployed
+
+    `ansible-playbook /home/ansible/security.yml`
+
+    Check the local /etc/sudoers.d/hardened on the ansible control node for the correct contents.
 
 
 <br><br><br><br>
