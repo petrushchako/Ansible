@@ -597,7 +597,25 @@ If the report is collected, the playbook should write and edit the file to repla
 
 Besides being an objective on the Red Hat Certified Ansible Specialist Exam, a demonstrated ability to use Ansible templates, variables, and facts is essential to practical systems deployment through Ansible. Templates allow for a streamlined approach to configuration management that reduces configuration error and simplifies system upkeep. This learning activity starts a student on a path from basic Ansible knowledge to a strong working knowledge that is necessary for real-world application.
 
-This course is not approved or sponsored by Red Hat.
+<br>
+
+**Additional information**
+
+A colleague of yours was the unfortunate victim of a scam email, and their network account was compromised. Shortly after you finished helping them pack up their desk, your boss gave you the assignment to promote system security through deploying a hardened sudoers file. You will need to create an Ansible template of the sudoers file that meets the following criteria:
+
+  - A file named `/etc/sudoers.d/hardened` to deploy on all ansible inventory servers. WARNING: **Do NOT edit the default `sudoers` file**, doing so may break your exercise environment. 
+   
+    Additionally, always validate any file placed in /etc/sudoers.d with `/sbin/visudo -cf <filename>` prior to deployment!!
+  - Grant users in the `sysops` group the ability to run all commands as root for each local system by IP address. This would be what the entry in your result file except with the target system's IP: `%sysops 34.124.22.55 = (ALL) ALL`.
+  - Define the `host_alias` group `WEBSERVERS` to contain all servers in the ansible web inventory group: `Host_Alias WEBSERVERS = <host name>`.
+  - Define the `host_alias` group `DBSERVERS` to contain all servers in the ansible database inventory group: `Host_Alias DBSERVERS = <host name>`
+  - Grant users in the `httpd` group the ability to `sudo su - webuser` on the WEBSERVERS hosts: `%httpd WEBSERVERS = /bin/su - webuser`
+  - Grant users in the `dba` group `sudo su - dbuser` on the DBSERVERS hosts: `%dba DBSERVERS = /bin/su - dbuser`
+  - The file must be validated using `/sbin/visudo -cf` before deployment.
+
+
+
+
 
 
 <br><br><br><br>
