@@ -891,7 +891,21 @@ On `remote`:
 
     Expected outcome:
     ![](img/lab9.png)
+
+
+    Review host:
+    ```shell
+    ssh nfs
+    cat /etc/exports
+    systemctl status nfs-server
+    exit
+
+    ssh node2
+    cat /etc/hosts
+    id judy
+    ```
     
+
 
 <br><br><br><br>
 ### Advanced Features in Ansible Playbooks
