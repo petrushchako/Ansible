@@ -642,14 +642,14 @@ You will need to create an accompanying playbook in `/home/ansible/security.yml`
     ```yaml
     ---
     - hosts: all
-    become: yes
-    tasks:
-    - name: deploy sudo template
-        template:
-        src: /home/ansible/hardened.j2
-        dest: /etc/sudoers.d/hardened
-        validate: /sbin/visudo -cf %s
-```
+      become: yes
+      tasks:
+      - name: deploy sudo template
+          template:
+          src: /home/ansible/hardened.j2
+          dest: /etc/sudoers.d/hardened
+          validate: /sbin/visudo -cf %s
+    ```
 - Run the Playbook and Ensure the Files Are Correctly Deployed
 
     `ansible-playbook /home/ansible/security.yml`
