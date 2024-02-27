@@ -773,6 +773,16 @@ Your supervisor has asked you to find a way to automate and audit basic system c
 <br><br><br><br>
 ### Deploying Services Using Ansible
 
+**ABOUT THIS LAB**
+
+Ansible is frequently used to manage software configuration and deployment. This exercise allows students to deploy and configure an NFS server using key features of Ansible.
+
+<br>
+
+
+
+
+
 
 
 <br><br><br><br>
