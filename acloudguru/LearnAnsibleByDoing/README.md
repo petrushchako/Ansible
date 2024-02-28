@@ -932,3 +932,40 @@ On `remote`:
 ### Working with Confidential Data in Ansible
 
 
+
+
+<br><br><br><br>
+## Build custom module
+
+1. Create a playbook to call your new module with hello_world.yml
+
+```yaml
+---
+- hosts: localhost
+  tasks:
+    - name: Run Hello world module
+      hello_world:
+      register: result
+
+    - debug: var=result
+```
+
+2. Create `library` directory with `.py` file
+    - Use `#!/usr/bin/python`
+    - Import the `ansible.module_utils.basic` to use `AnsibleModule`
+    - Use `main()`
+    - `AnsibleModule` is used for passing parameters in and out of the module and in this case, only passing back meta with the value of `theReturnValue`
+
+```python
+#!/usr/bin/python
+
+from ansible.module_utils.basic import *
+
+def main():
+    module = AnsibleModule(argument_spec={})
+    theReturnValue = {"hello": "world"}
+    module.exit_json(changed=False, meta=theReturnValue)
+
+if __name__ == '__main__':
+    main()
+```
