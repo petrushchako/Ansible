@@ -977,11 +977,26 @@ You must create a modular playbook used for webserver management. Create a playb
     ```
 
 
-
-
 - Deploy the templates stored on the control node to the webservers group.
 
+    Configure `/home/ansible/webserver.yml` to deploy the templates `/home/ansible/vhost.conf.j2` and `/home/ansible/htpasswd.j2` stored on the control node to the `webservers` group. `httpd` must restart on config change. The tasks should be tagged `vhost`.
 
+    ```yaml
+    - name: configure virtual host
+      template:
+        src: /home/ansible/vhost.conf.j2
+        dest: /etc/httpd/conf.d/vhost.conf
+      notify: httpd service
+      tags:
+        - vhost
+    - name: configure site auth
+      template:
+        src: /home/ansible/htpasswd.j2
+        dest: /etc/httpd/conf/htpasswd
+      notify: httpd service
+      tags:
+        - vhost
+    ```
 
 
 
