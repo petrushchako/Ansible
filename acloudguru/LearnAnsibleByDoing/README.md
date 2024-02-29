@@ -934,6 +934,47 @@ You must create a modular playbook used for webserver management. Create a playb
     - `data-job` to execute the asynchronous data job.
 
 
+<br>
+
+**Learning Objectives**
+
+- Use ansible-vault to protect the confidential information.
+
+
+
+
+
+- Create a playbook that deploys httpd on webservers.
+
+
+
+
+
+
+- Deploy the templates stored on the control node to the webservers group.
+
+
+
+
+
+
+- Asynchronously execute data-job on webservers.
+
+
+
+
+
+
+- Execute playbook to verify your playbook works correctly.
+
+
+
+
+
+
+
+
+
 
 
 
