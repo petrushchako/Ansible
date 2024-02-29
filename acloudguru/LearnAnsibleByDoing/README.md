@@ -1006,18 +1006,22 @@ You must create a modular playbook used for webserver management. Create a playb
     Configure `/home/ansible/webserver.yml` to **asynchronously** execute `/opt/data-job.sh` located on webservers with a timeout of **600 seconds and no polling**. The task should be tagged with `data-job`.
 
     Add the following text to `/home/ansible/webserver.yml` just before the `handler` section:
-```yaml
-- name: run data job 
-  command: /opt/data-job.sh 
-    async: 600 
-    poll: 0 
-  tags: - data-job
+    
+    ```yaml
+    - name: run data job 
+      command: /opt/data-job.sh 
+        async: 600 
+        poll: 0 
+      tags: - data-job
+    ```
 
 
 
 - Execute playbook to verify your playbook works correctly.
 
+    Execute playbook `/home/ansible/webserver.yml` to verify your playbook works correctly.
 
+    Run `ansible-playbook --ask-vault-pass /home/ansible/webserver.yml` from the control node providing the vault password "`I love ansible`".
 
 
 
