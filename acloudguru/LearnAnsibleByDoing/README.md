@@ -910,6 +910,11 @@ On `remote`:
 <br><br><br><br>
 ### Advanced Features in Ansible Playbooks
 
+**ABOUT THIS LAB**
+
+There are a number of features unique to Ansible playbooks which provide robust functionality. This exercise explores many of these features in a practical scenario of deploying a web server. Most notably, this exercise deals with confidential data in an Ansible vault and working with tags in Ansible playbooks.
+
+
 
 
 
