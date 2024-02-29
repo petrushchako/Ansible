@@ -914,6 +914,26 @@ On `remote`:
 
 There are a number of features unique to Ansible playbooks which provide robust functionality. This exercise explores many of these features in a practical scenario of deploying a web server. Most notably, this exercise deals with confidential data in an Ansible vault and working with tags in Ansible playbooks.
 
+<br>
+
+**Additional Resources**
+
+You must create a modular playbook used for webserver management. Create a playbook called /home/ansible/webserver.yml that meets the following requirements:
+
+**On the host group `webservers`:**
+- Deploy `httpd`.
+- You can assume all necessary firewall rules have been deployed.
+- Start and enable `httpd`.
+- Configure virtual host using the provided templates in `/home/ansible/vhost.conf.j2` and `/home/ansible/htpasswd.j2`.
+    - **Note**: The template references a variable defined in `/home/ansible/confidential` which must be included as a variable file in your playbook.
+    - Use ansible vault to secure `/home/ansible/confidential` with password "`I love ansible`".
+- Run the data job stored in `/opt/data-job.sh` on each node in webservers asynchronously, without polling for status.
+- Create tags for the following tasks:
+    - `base-install` for `httpd` installation and service configuration.
+    - `vhost` for virtual host deployment.
+    - `data-job` to execute the asynchronous data job.
+
+
 
 
 
