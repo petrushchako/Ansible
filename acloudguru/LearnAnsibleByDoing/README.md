@@ -940,13 +940,41 @@ You must create a modular playbook used for webserver management. Create a playb
 
 - Use ansible-vault to protect the confidential information.
 
+    Use `ansible-vault` to encrypt `/home/ansible/confidential` to protect the confidential information stored within using the password "I love ansible".
 
+    Run 
+    ```shell
+    ansible-vault encrypt /home/ansible/confidential
+    ```
+    and supply the password "**I love ansible**".
 
 
 
 - Create a playbook that deploys httpd on webservers.
 
+    Create a playbook in `/home/ansible/webserver.yml` that deploys httpd on webservers.
 
+    ```yaml
+      - hosts: webservers
+        become: yes
+        vars_files:
+          - /home/ansible/confidential
+        tasks:
+          - name: install httpd
+            yum:
+              name: httpd
+              state: latest
+            notify: httpd service
+            tags:
+            - base-install
+        handlers:
+        - name: Restart and enable httpd
+            service:
+                name: httpd
+                state: restarted
+                enabled: yes
+            listen: httpd service
+    ```
 
 
 
