@@ -1064,7 +1064,9 @@ You must create a modular playbook used for webserver management. Create a playb
 ## Roles
 ### Working with Ansible Roles
 
+**ABOUT THIS LAB**
 
+Working with Ansible roles is a key concept covered on the Red Hat Certified Ansible Specialist Exam (EX407). This should not be a surprise, considering how much functionality roles provide. This exercise covers how to create a role and how to use roles within a playbook. In order to complete this exercise, you will need to have basic proficiency with several common Ansible modules and using Ansible playbooks. After completing this learning activity, you will better understand how to work with Ansible roles.
 
 
 
