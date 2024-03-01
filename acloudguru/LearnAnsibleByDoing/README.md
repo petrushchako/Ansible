@@ -966,7 +966,7 @@ You must create a modular playbook used for webserver management. Create a playb
               state: latest
             notify: httpd service
             tags:
-            - base-install
+              - base-install
         handlers:
         - name: Restart and enable httpd
             service:
@@ -1010,9 +1010,10 @@ You must create a modular playbook used for webserver management. Create a playb
     ```yaml
     - name: run data job 
       command: /opt/data-job.sh 
-        async: 600 
-        poll: 0 
-      tags: - data-job
+      async: 600 
+      poll: 0 
+      tags: 
+        - data-job
     ```
 
 
@@ -1023,7 +1024,41 @@ You must create a modular playbook used for webserver management. Create a playb
 
     Run `ansible-playbook --ask-vault-pass /home/ansible/webserver.yml` from the control node providing the vault password "`I love ansible`".
 
+    <br>
 
+    You can also run jobs with specific tags only:
+    `ansible-playbook webserver.yml --ask-vault-pass --tags base-install`
+
+    <br><br>
+
+    Confirm changes:
+
+    - curl the host1:
+  
+        `curl host1`
+
+
+        ```html
+        <! DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">
+        chtml><head>
+        «title>401 Unauthorized</title>
+        </head><body>
+        <h1>Unauthorized</h1>
+        <p> This server could not verify that you are authorized to access the document requested.
+        Either you supplied the wrong credentials (e.g., bad password), or your browser doesn't understand how to supply the credentials required.</p>
+        </body></html>
+        ```
+
+    - login into host1 and check `ps` for running script:
+       ```shell
+       ssh host1
+       ps -ef | grep data
+       ```
+
+       ```shell
+       root  1689 0 11:40 00:00:00 [xfs-data/xvdal]
+       root 14490 14489 0 12:32 7 00:00:00 /bin/sh/opt/data-job.sh
+       ```
 
 
 
