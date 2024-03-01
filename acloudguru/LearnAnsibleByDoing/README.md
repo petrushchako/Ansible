@@ -1094,16 +1094,124 @@ You will find the motd template, Nagios server IP information, the noc user's pu
 - Edit web.yml to deploy the baseline role in addition to what it already does.
 - Verify that your role works by deploying web.yml with Ansible.
 
+<br>
+
+**Learning Objectives**
+
+- **Create a Role Called baseline in /etc/ansible/roles**
+
+    Run the following commands to create the structure needed for the role:
+
+    ```shell
+    sudo mkdir /etc/ansible/roles/baseline && sudo chown ansible.ansible /etc/ansible/roles/baseline
+
+    mkdir /etc/ansible/roles/baseline/{templates,tasks,files}
+
+    echo "---" > /etc/ansible/roles/baseline/tasks/main.yml
+    ```
+
+- **Configure the Role to Deploy the /etc/motd Template**
+
+    - `cp /home/ansible/resources/motd.j2 /etc/ansible/roles/baseline/templates`
+    - Create a file called `/etc/ansible/roles/baseline/tasks/deploy_motd.yml` with the following content:
+        ```yml
+        ---
+        - template:
+            src: motd.j2
+            dest: /etc/motd
+        ```
+    - Edit `/etc/ansible/roles/baseline/tasks/main.yml` to include the following lines at the bottom of the file:
+        ```yaml
+        ---
+        - name: configure motd
+          import_tasks: deploy_motd.yml
+        ```
+
+
+- **Configure the Role to Install the Latest Nagios Client**
+
+  - Create a file called `/etc/ansible/roles/baseline/tasks/deploy_nagios.yml` with the following content:
+    ```yaml
+    ---
+    - yum: name=nrpe state=latest
+    ```
+
+  - Edit `/etc/ansible/roles/baseline/tasks/main.yml` to include the following lines at the bottom of the file (take care with the formatting.):
+    ```yaml
+    - name: deploy nagios client
+      import_tasks: deploy_nagios.yml
+    ```
+
+
+- **Configure the Role to Add an Entry to /etc/hosts for the Nagios Server**
+  
+  - Create a file called `/etc/ansible/roles/baseline/tasks/edit_hosts.yml` with the following content, substituting <<PROVIDED>PROVIDED> with the IP specified in `/home/ansible/resources/nagios_info.txt`:
+    ```yml
+    ---
+    - lineinfile:
+        line: "10.0.1.16 nagios.example.com"
+        path: /etc/hosts
+    ```
+  - Edit `/etc/ansible/roles/baseline/tasks/main.yml` to include the following lines at the bottom of the file:
+    ```yml
+     - name: edit hosts file
+       import_tasks: edit_hosts.yml
+    ```
+
+
+- **Configure the Role to Create the noc User and Deploy the Provided Public Key for the noc User on Target Systems**
+
+  - Copy the file `/home/ansible/resources/authorized_keys` to `/etc/ansible/roles/baseline/files/`.
+
+  - Create a file called `/etc/ansible/roles/baseline/tasks/deploy_noc_user.yml `with the following content:
+    ```yml
+    ---
+    - user: name=noc
+    - file:
+        state: directory
+        path: /home/noc/.ssh
+        mode: 0600
+        owner: noc
+        group: noc
+    - copy:
+        src: authorized_keys
+        dest: /home/noc/.ssh/authorized_keys
+        mode: 0600
+        owner: noc
+        group: noc
+    ```
+
+  - Edit `/etc/ansible/roles/baseline/tasks/main.yml` to include the following lines at the bottom of the file:
+    ```yml
+    - name: set up noc user and key
+      import_tasks: deploy_noc_user.yml
+    ```
 
 
 
+- **Edit web.yml to Deploy the baseline Role**
+
+  - Edit `/home/ansible/resources/web.yml` to the following:
+    ```yml
+    ---
+    - hosts: webservers
+    become: yes
+    roles:
+      - baseline
+    tasks:
+      - name: install httpd
+        yum: name=httpd state=latest
+      - name: start and enable httpd
+        service: name=httpd state=started enabled=yes
+    ```
+
+- **Run Your Playbook Using the Default Inventory**
+
+    `ansible-playbook /home/ansible/resources/web.yml`
 
 
-
-
-
-
-
+    Expected output:
+    ![](img/lab10.png)
 
 
 
