@@ -1060,17 +1060,22 @@ You must create a modular playbook used for webserver management. Create a playb
        root 14490 14489 0 12:32 7 00:00:00 /bin/sh/opt/data-job.sh
        ```
 
-
-
-
-
-
-
-
-
 <br><br><br><br>
 ## Roles
 ### Working with Ansible Roles
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
